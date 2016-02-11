@@ -10,11 +10,11 @@ module Fastlane
         command += upload_options(params)
         command << upload_url(params)
 
-        Fastlane::Actions.sh(command.join(' '), log: false)
+        Fastlane::Actions.sh(command.join(' '), log: params[:verbose])
       end
 
       def self.upload_url(params)
-        "#{params[:endpoint].shellescape}/nexus/service/local/artifact/maven/content"
+        "#{params[:endpoint].shellescape}/service/local/artifact/maven/content"
       end
 
       def self.verbose(params)
@@ -94,7 +94,7 @@ module Fastlane
                                        optional: false),
           FastlaneCore::ConfigItem.new(key: :endpoint,
                                        env_name: "FL_NEXUS_ENDPOINT",
-                                       description: "Nexus endpoint e.g. http://nexus:8081",
+                                       description: "Nexus endpoint. Including the Nexus webapp's mount point e.g. http://nexus:8081/nexus",
                                        optional: false),
           FastlaneCore::ConfigItem.new(key: :username,
                                        env_name: "FL_NEXUS_USERNAME",
